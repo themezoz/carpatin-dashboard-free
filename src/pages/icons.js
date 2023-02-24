@@ -1,102 +1,109 @@
-import { Helmet } from 'react-helmet';
-import { Box, Card, Container, Grid, Link, Typography } from '@mui/material';
-import { Cog as CogIcon } from '../icons/cog';
-import { DocumentText as DocumentTextIcon } from '../icons/document-text';
-import { Home as HomeIcon } from '../icons/home';
-import { ShoppingCart as ShoppingCartIcon } from '../icons/shopping-cart';
-import { Star as StarIcon } from '../icons/star';
+import { Helmet } from 'react-helmet-async';
+import CogIcon from '@heroicons/react/24/solid/CogIcon';
+import DocumentTextIcon from '@heroicons/react/24/solid/DocumentTextIcon';
+import HomeIcon from '@heroicons/react/24/solid/HomeIcon';
+import ShoppingCartIcon from '@heroicons/react/24/solid/ShoppingCartIcon';
+import StarIcon from '@heroicons/react/24/solid/StarIcon';
+import {
+  Box,
+  Card,
+  Container,
+  Link,
+  Stack,
+  SvgIcon,
+  Typography,
+  Unstable_Grid2 as Grid
+} from '@mui/material';
 
-const icons = [HomeIcon, ShoppingCartIcon, CogIcon, DocumentTextIcon, StarIcon];
+const icons = [
+  <CogIcon />,
+  <DocumentTextIcon />,
+  <HomeIcon />,
+  <ShoppingCartIcon />,
+  <StarIcon />
+];
 
-export const Icons = () => (
+const Page = () => (
   <>
     <Helmet>
-      <title>Icons | Carpatin Dashboard</title>
+      <title>
+        Icons | Carpatin Free
+      </title>
     </Helmet>
     <Box
       sx={{
-        backgroundColor: 'background.default',
-        pb: 3,
-        pt: 8
+        flexGrow: 1,
+        py: 8
       }}
     >
-      <Container maxWidth="lg">
-        <Typography
-          color="textPrimary"
-          sx={{ mb: 3 }}
-          variant="h4"
-        >
-          Icons
-        </Typography>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            md={4}
-            xs={12}
-          >
-            <Typography
-              color="textPrimary"
-              sx={{ mb: 1 }}
-              variant="h6"
-            >
-              Hero Icons
+      <Container maxWidth="xl">
+        <Stack spacing={3}>
+          <div>
+            <Typography variant="h4">
+              Icons
             </Typography>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
-              We use
-              {' '}
-              <Link
-                color="primary"
-                href="https://heroicons.com"
-                target="_blank"
-                variant="inherit"
-              >
-                Hero Icons
-              </Link>
-              {' '}
-              for displaying icons as we think it reflects the clean
-              and light style of the Carpatin Design System.
-            </Typography>
-          </Grid>
-          <Grid
-            item
-            md={8}
-            xs={12}
-          >
-            <Card
-              sx={{
-                display: 'grid',
-                gap: 2,
-                gridAutoFlow: 'column',
-                p: 3
-              }}
-              variant="outlined"
+          </div>
+          <div>
+            <Grid
+              container
+              spacing={3}
             >
               <Grid
-                container
-                spacing={2}
-                wrap="wrap"
+                xs={12}
+                md={4}
               >
-                {icons.map((Icon, index) => (
-                  <Grid
-                    item
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={index}
-                    sx={{ display: 'flex' }}
+                <Stack spacing={1}>
+                  <Typography variant="h6">
+                    Hero Icons
+                  </Typography>
+                  <Typography
+                    color="text.secondary"
+                    variant="body2"
                   >
-                    <Icon sx={{ color: 'text.secondary' }} />
-                  </Grid>
-                ))}
+                    We use
+                    {' '}
+                    <Link
+                      color="primary"
+                      href="https://heroicons.com"
+                      target="_blank"
+                      variant="inherit"
+                    >
+                      Hero Icons
+                    </Link>
+                    {' '}
+                    for displaying icons as we think it reflects the clean
+                    and light style of the Carpatin Design System.
+                  </Typography>
+                </Stack>
               </Grid>
-            </Card>
-          </Grid>
-        </Grid>
+              <Grid
+                xs={12}
+                md={8}
+              >
+                <Card>
+                  <Stack
+                    alignItems="center"
+                    direction="row"
+                    spacing={2}
+                    sx={{ p: 3 }}
+                  >
+                    {icons.map((icon, index) => (
+                      <SvgIcon
+                        key={index}
+                        sx={{ color: 'neutral.600' }}
+                      >
+                        {icon}
+                      </SvgIcon>
+                    ))}
+                  </Stack>
+                </Card>
+              </Grid>
+            </Grid>
+          </div>
+        </Stack>
       </Container>
     </Box>
   </>
 );
+
+export default Page;

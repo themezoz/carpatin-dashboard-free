@@ -1,47 +1,14 @@
 import Chart from 'react-apexcharts';
+import PropTypes from 'prop-types';
 import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-const stats = [
-  {
-    content: '€4,800.00',
-    label: 'Revenue'
-  },
-  {
-    content: '€4,900,24',
-    label: 'NET'
-  },
-  {
-    content: '€1,600.50',
-    label: 'Pending orders'
-  },
-  {
-    content: '€6,900.10',
-    label: 'Due'
-  },
-  {
-    content: '€6,500.80',
-    label: 'Overdue'
-  }
-];
-
-const data = {
-  categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  series: [
-    {
-      data: [0, 20, 40, 30, 30, 44, 90],
-      name: 'Revenue'
-    }
-  ]
-};
-
-export const PerformanceIndicators = (props) => {
+const useChartOptions = () => {
   const theme = useTheme();
 
-  const chartOptions = {
+  return {
     chart: {
       background: 'transparent',
-      stacked: false,
       toolbar: {
         show: false
       },
@@ -52,7 +19,7 @@ export const PerformanceIndicators = (props) => {
     legend: {
       show: true
     },
-    colors: ['rgba(49, 129, 237, 1)'],
+    colors: [theme.palette.primary.main],
     dataLabels: {
       enabled: false
     },
@@ -73,7 +40,10 @@ export const PerformanceIndicators = (props) => {
       }
     },
     stroke: {
-      curve: 'straight'
+      width: 3
+    },
+    theme: {
+      mode: theme.palette.mode
     },
     xaxis: {
       axisBorder: {
@@ -84,7 +54,7 @@ export const PerformanceIndicators = (props) => {
         color: theme.palette.divider,
         show: true
       },
-      categories: data.categories,
+      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       labels: {
         style: {
           colors: theme.palette.text.secondary
@@ -100,12 +70,14 @@ export const PerformanceIndicators = (props) => {
       }
     }
   };
+};
+
+export const OverviewKpi = (props) => {
+  const { chartSeries = [], stats = [] } = props;
+  const chartOptions = useChartOptions();
 
   return (
-    <Card
-      variant="outlined"
-      {...props}
-    >
+    <Card>
       <CardHeader title="Key Performance Indicators" />
       <Divider />
       <CardContent>
@@ -132,16 +104,13 @@ export const PerformanceIndicators = (props) => {
               }}
             >
               <Typography
-                color="textSecondary"
+                color="text.secondary"
                 variant="overline"
               >
                 {item.label}
               </Typography>
-              <Typography
-                color="textPrimary"
-                variant="h6"
-              >
-                {item.content}
+              <Typography variant="h6">
+                {item.value}
               </Typography>
             </Card>
           ))}
@@ -149,10 +118,15 @@ export const PerformanceIndicators = (props) => {
         <Chart
           height="350"
           options={chartOptions}
-          series={data.series}
+          series={chartSeries}
           type="area"
         />
       </CardContent>
     </Card>
   );
 };
+
+OverviewKpi.propTypes = {
+  chartSeries: PropTypes.array,
+  stats: PropTypes.array
+}

@@ -1,49 +1,48 @@
-import { Navigate } from 'react-router-dom';
-import { Layout } from './components/layout';
-import { Icons } from './pages/icons';
-import { NotFound } from './pages/not-found';
-import { Orders } from './pages/orders';
-import { Reports } from './pages/reports';
-import { Settings } from './pages/settings';
-import { Theme } from './pages/theme';
+import { Outlet } from 'react-router-dom';
+import { Layout as DashboardLayout } from './layouts/dashboard/layout';
+import IconsPage from './pages/icons';
+import NotFoundPage from './pages/404';
+import OrdersPage from './pages/orders';
+import ReportsPage from './pages';
+import SettingsPage from './pages/settings';
+import ThemePage from './pages/theme';
 
 export const routes = [
   {
-    path: '/',
-    element: <Navigate to="/dashboard" />
-  },
-  {
-    path: 'dashboard',
-    element: <Layout />,
+    element: (
+      <DashboardLayout>
+        <Outlet />
+      </DashboardLayout>
+    ),
     children: [
       {
-        path: '',
-        element: <Reports />
+        index: true,
+        element: <ReportsPage />
       },
       {
         path: 'orders',
-        element: <Orders />
+        element: <OrdersPage />
       },
       {
         path: 'settings',
-        element: <Settings />
+        element: <SettingsPage />
       },
       {
         path: 'theme',
-        element: <Theme />
+        element: <ThemePage />
       },
       {
         path: 'icons',
-        element: <Icons />
-      },
-      {
-        path: '*',
-        element: <Navigate to="/404" />
+        element: <IconsPage />
       }
     ]
   },
   {
     path: '404',
-    element: <NotFound />
+    element: <NotFoundPage />
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />
   }
 ];

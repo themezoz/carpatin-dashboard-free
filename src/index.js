@@ -1,10 +1,17 @@
-import 'simplebar/dist/simplebar.min.css';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
+import { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import App from './app';
+import { HelmetProvider } from 'react-helmet-async';
+import { App } from './app';
 
-ReactDOM.render((
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-), document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+  <HelmetProvider>
+    <BrowserRouter>
+      <Suspense>
+        <App />
+      </Suspense>
+    </BrowserRouter>
+  </HelmetProvider>
+);
