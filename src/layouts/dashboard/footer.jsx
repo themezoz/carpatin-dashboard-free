@@ -36,14 +36,14 @@ export const Footer = () => (
         }
       }}
     >
-      <Typography
-        color="text.secondary"
-        variant="caption"
-      >
-        © 2023 Devias
+      <Typography color="text.secondary" variant="caption">
+        © 2023 Devias, distributed by
+        <Link ml={0.5} href="https://themewagon.com/">
+          ThemeWagon
+        </Link>
       </Typography>
       <Box sx={{ flexGrow: 1 }} />
-      {items.map((link) => (
+      {items.map(link => (
         <Link
           color="text.secondary"
           href={link.href}

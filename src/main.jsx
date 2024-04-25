@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <HelmetProvider>
-    <BrowserRouter>
+    <BrowserRouter basename="carpatin-dashboard-free">
       <Suspense>
         <App />
       </Suspense>
